@@ -174,7 +174,7 @@ public class Word {
             for (int j=0;j<secretWords.length;j++){
                 //System.out.println("Word "+secretWords[j]);
                 line[j] = makeKey(i,secretWords[j]);
-                //System.out.println("Word "+ line[j]);
+                System.out.println("key "+i +" Word "+ line[j]);
             }
             secretsWords.add(line);
         }
@@ -211,10 +211,12 @@ public class Word {
         ts = new int[secretsWords.size()];
         for (int i=0; i<secretsWords.size(); i++){
             for (int j=0;j<secretsWords.get(i).length;j++){
-                System.out.print(secretsWords.get(i)[j]);
-                System.out.print("#");
+                //System.out.println("--"+secretsWords.get(i)[j]);
+                //System.out.print("#");
                 //verify if word secretsWords.get(i)[j] exists in dictionary
-                if(words.contains(secretsWords.get(i)[j].toLowerCase())){
+                String limpa=clean(secretsWords.get(i)[j]);
+                if(words.contains(limpa.toLowerCase())){
+                    //System.out.println("--"+secretsWords.get(i)[j]);
                     //System.out.println("FOUND");
                     ts[i]++;
                 }
@@ -222,7 +224,6 @@ public class Word {
             //System.out.println();
         }
         return ts;
-
     }
 
     public int biggerCount(){
@@ -238,5 +239,26 @@ public class Word {
     }
 
 
+    public String clean(String source){
+        String revome=",.!?";
+        for (int i = 0; i < revome.length(); i++) {
+            //System.out.print("Tem "+source);
+            //System.out.println(" isso "+revome.substring(i,(i+1)));
+
+            if(source.contains(revome.substring(i,(i+1)))){
+                source=source.replace(",","");
+            }
+            if(source.contains(revome.substring(i,(i+1)))){
+                source=source.replace(".","");
+            }
+            if(source.contains(revome.substring(i,(i+1)))){
+                source=source.replace("!","");
+            }
+            if(source.contains(revome.substring(i,(i+1)))){
+                source=source.replace("?","");
+            }
+        }
+        return source;
+    }
 
 }
